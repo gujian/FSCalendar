@@ -12,44 +12,43 @@
 #import "MultipleSelectionViewController.h"
 #import "FullScreenExampleViewController.h"
 #import "DelegateAppearanceViewController.h"
+#import "CalendarIdentifierViewController.h"
 
 @implementation FSTableViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    
+    self.viewControllers = @[
+                             [CalendarIdentifierViewController class],
+                             [DelegateAppearanceViewController class],
+                             [FullScreenExampleViewController class],
+                             [MultipleSelectionViewController class],
+                             [NSObject class],
+                             [NSObject class],
+                             [LoadViewExampleViewController class],
+                             [ViewDidLoadExampleViewController class] // Deprecated
+                            ];
+    
+    self.tableView.rowHeight = [[UIDevice currentDevice].model hasSuffix:@"iPad"] ? 60.0 : 44.0;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.tableView.indexPathForSelectedRow) {
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:animated];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        DelegateAppearanceViewController *viewController = [[DelegateAppearanceViewController alloc] init];
-        [self.navigationController pushViewController:viewController animated:YES];
-    } else if (indexPath.row == 1) {
-        FullScreenExampleViewController *viewController = [[FullScreenExampleViewController alloc] init];
-        [self.navigationController pushViewController:viewController animated:YES];
-    } else if (indexPath.row == 2) {
-        MultipleSelectionViewController *viewController = [[MultipleSelectionViewController alloc] init];
-        [self.navigationController pushViewController:viewController animated:YES];
-    } else if (indexPath.row == 3) {
-        // FSCalendarScope Example
-        return;
-        
-    } else if (indexPath.row == 4) {
-        // Storyboard Example
-        return;
-    } else if (indexPath.row == 5) {
-        
-        // LoadView Example
-        LoadViewExampleViewController *viewController = [[LoadViewExampleViewController alloc] init];
-        [self.navigationController pushViewController:viewController animated:YES];
-        
-    } else if (indexPath.row == 6) {
-        
-        // ViewDidLoad Example
-        ViewDidLoadExampleViewController *viewController = [[ViewDidLoadExampleViewController alloc] init];
-        [self.navigationController pushViewController:viewController animated:YES];
+    id viewControllerClass = self.viewControllers[indexPath.row];
+    if ([viewControllerClass isSubclassOfClass:[UIViewController class]]) {
+        [self.navigationController pushViewController:[[viewControllerClass alloc] init] animated:YES];
     }
 }
 

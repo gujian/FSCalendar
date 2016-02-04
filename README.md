@@ -1,11 +1,18 @@
 
 ![fscalendar](https://cloud.githubusercontent.com/assets/5186464/6655324/213a814a-cb36-11e4-9add-f80515a83291.png)<br/><br/>
 [![Version](https://img.shields.io/cocoapods/v/FSCalendar.svg?style=flat)](http://cocoadocs.org/docsets/FSCalendar)
-[![License](https://img.shields.io/cocoapods/l/FSCalendar.svg?style=flat)](http://cocoadocs.org/docsets/FSCalendar)
-[![Platform](https://img.shields.io/cocoapods/p/FSCalendar.svg?style=flat)](http://cocoadocs.org/docsets/FSCalendar)
+[![Platform](https://img.shields.io/badge/platform-iOS%207%2B-blue.svg?style=flat)](http://cocoadocs.org/docsets/FSCalendar)
+[![Swift2 compatible](https://img.shields.io/badge/swift2-compatible-4BC51D.svg?style=flat)](https://developer.apple.com/swift/)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![License](https://img.shields.io/cocoapods/l/FSCalendar.svg?style=flat)](http://cocoadocs.org/docsets/FSCalendar)
 
+# Screenshots
+
+## iPhone
 ![fscalendar](https://cloud.githubusercontent.com/assets/5186464/10262249/4fabae40-69f2-11e5-97ab-afbacd0a3da2.jpg)
+
+## iPad
+![fscalendar-ipad](https://cloud.githubusercontent.com/assets/5186464/10927681/d2448cb6-82dc-11e5-9d11-f664a06698a7.jpg)
 
 # Installation
 
@@ -36,7 +43,7 @@ Only the methods marked "👍" support IBInspectable / IBDesignable feature. [Ha
 
 # Setup
 
-## Use Interface Builder (Recommended)
+## Use Interface Builder
 
 1. Drag an UIView object to ViewController Scene
 2. Change the `Custom Class` to `FSCalendar`<br/>
@@ -52,7 +59,7 @@ Only the methods marked "👍" support IBInspectable / IBDesignable feature. [Ha
 @property (weak , nonatomic) FSCalendar *calendar;
 ```
 ```objective-c
-// In loadView or viewDidLoad
+// In loadView(Recommended) or viewDidLoad
 FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 0, 320, 300)];
 calendar.dataSource = self;
 calendar.delegate = self;
@@ -77,6 +84,34 @@ calendar.delegate = self
 view.addSubview(calendar)
 self.calendar = calendar
 ```
+<br/>
+## Focus on selected date on ***week mode***
+![fscalendar-scope](https://cloud.githubusercontent.com/assets/5186464/12474251/aec94a32-c054-11e5-8b30-9e3d03d9a846.gif)
+
+### How to use
+* Use ***`focusOnSingleSelectedDate`***, default is `YES`
+```objective-c
+calendar.focusOnSingleSelectedDate = YES;
+```
+* Implement `calendarCurrentScopeWillChange:animated:`
+```objective-c
+- (void)calendarCurrentScopeWillChange:(FSCalendar *)calendar animated:(BOOL)animated
+{
+    CGFloat height = [calendar sizeThatFits:CGSizeZero].height;
+    calendar.frame = CGRectMake(0, CGRectGetMaxY(self.navigationController.navigationBar.frame), self.view.bounds.size.width, height);
+}
+```
+
+* Try to change `scope` to `week`
+```objective-c
+[calendar setScope:FSCalendarScopeWeek animated:YES];
+```
+
+* To change back
+```objective-c
+[calendar setScope:FSCalendarScopeMonth animated:YES];
+```
+
 ### <a id="roll_with_interface_builder"></a> Roll with Interface Builder
 ![fscalendar - ibdesignable](https://cloud.githubusercontent.com/assets/5186464/9301716/2e76a2ca-4503-11e5-8450-1fa7aa93e9fd.gif)
 
@@ -85,7 +120,7 @@ self.calendar = calendar
 * Or your could refer to [this document](https://github.com/WenchaoIOS/FSCalendar/blob/master/MOREUSAGE.md)
 
 # If you like this repo
-* `Star` this repo.
+* ***Star*** this repo.
 * Send your calendar screenshot or `itunes link address` [here](https://github.com/WenchaoIOS/FSCalendar/issues/2).
 
 # Support me via  [![paypal](https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg)](https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg)

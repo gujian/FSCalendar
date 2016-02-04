@@ -10,65 +10,16 @@
 
 @implementation FSCalendar (IBExtension)
 
-#pragma mark -  autoAdjustTitleSize
+#pragma mark - adjustsFontSizeToFitContentSize
 
-- (void)setAutoAdjustTitleSize:(BOOL)autoAdjustTitleSize
+- (void)setAdjustsFontSizeToFitContentSize:(BOOL)adjustsFontSizeToFitContentSize
 {
-    self.appearance.autoAdjustTitleSize = autoAdjustTitleSize;
+    self.appearance.adjustsFontSizeToFitContentSize = adjustsFontSizeToFitContentSize;
 }
 
-- (BOOL)autoAdjustTitleSize
+- (BOOL)adjustsFontSizeToFitContentSize
 {
-    return self.appearance.autoAdjustTitleSize;
-}
-
-
-#pragma mark - titleTextSize
-
-- (void)setTitleTextSize:(CGFloat)titleTextSize
-{
-    self.appearance.titleTextSize = titleTextSize;
-}
-
-- (CGFloat)titleTextSize
-{
-    return self.appearance.titleTextSize;
-}
-
-#pragma mark - subtitleTextSize
-
-- (void)setSubtitleTextSize:(CGFloat)subtitleTextSize
-{
-    self.appearance.subtitleTextSize = subtitleTextSize;
-}
-
-- (CGFloat)subtitleTextSize
-{
-    return self.appearance.subtitleTextSize;
-}
-
-#pragma mark - weekdayTextSize
-
-- (void)setWeekdayTextSize:(CGFloat)weekdayTextSize
-{
-    self.appearance.weekdayTextSize = weekdayTextSize;
-}
-
-- (CGFloat)weekdayTextSize
-{
-    return self.appearance.weekdayTextSize;
-}
-
-#pragma mark - headerTitleTextSize
-
-- (void)setHeaderTitleTextSize:(CGFloat)headerTitleTextSize
-{
-    self.appearance.headerTitleTextSize = headerTitleTextSize;
-}
-
-- (CGFloat)headerTitleTextSize
-{
-    return self.appearance.headerTitleTextSize;
+    return self.appearance.adjustsFontSizeToFitContentSize;
 }
 
 #pragma mark -  eventColor
@@ -287,28 +238,58 @@
     return self.appearance.todaySelectionColor;
 }
 
-#pragma mark - cellStyle
+#pragma mark - borderDefaultColor
 
-- (void)setCellStyle:(FSCalendarCellStyle)cellStyle
+- (void)setBorderDefaultColor:(UIColor *)borderDefaultColor
 {
-    self.appearance.cellStyle = cellStyle;
+    self.appearance.borderDefaultColor = borderDefaultColor;
 }
 
-- (FSCalendarCellStyle)cellStyle
+- (UIColor *)borderDefaultColor
 {
-    return self.appearance.cellStyle;
+    return self.appearance.borderDefaultColor;
+}
+
+#pragma mark - borderSelectionColor
+
+- (void)setBorderSelectionColor:(UIColor *)borderSelectionColor
+{
+    self.appearance.borderSelectionColor = borderSelectionColor;
+}
+
+- (UIColor *)borderSelectionColor
+{
+    return self.appearance.borderSelectionColor;
+}
+
+#pragma mark - cellStyle
+
+- (void)setCellShape:(FSCalendarCellShape)cellShape
+{
+    self.appearance.cellShape = cellShape;
+}
+
+- (FSCalendarCellShape)cellShape
+{
+    return self.appearance.cellShape;
 }
 
 #pragma mark - useVeryShortWeekdaySymbols
 
 - (void)setUseVeryShortWeekdaySymbols:(BOOL)useVeryShortWeekdaySymbols
 {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     self.appearance.useVeryShortWeekdaySymbols = useVeryShortWeekdaySymbols;
+#pragma GCC diagnostic pop
 }
 
 - (BOOL)useVeryShortWeekdaySymbols
 {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     return self.appearance.useVeryShortWeekdaySymbols;
+#pragma GCC diagnostic pop
 }
 
 #pragma mark - fakeSubtitles
@@ -334,6 +315,77 @@
 {
     return self.appearance.fakedSelectedDay;
 }
+
+#pragma mark - cellStyle
+
+- (void)setCellStyle:(FSCalendarCellStyle)cellStyle
+{
+    self.appearance.cellShape = (FSCalendarCellShape)cellStyle;
+}
+
+- (FSCalendarCellStyle)cellStyle
+{
+    return (FSCalendarCellStyle)self.appearance.cellShape;
+}
+
+#pragma mark -  autoAdjustTitleSize
+
+- (void)setAutoAdjustTitleSize:(BOOL)autoAdjustTitleSize
+{
+    self.appearance.adjustsFontSizeToFitContentSize = autoAdjustTitleSize;
+}
+
+- (BOOL)autoAdjustTitleSize
+{
+    return self.appearance.adjustsFontSizeToFitContentSize;
+}
+
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
+- (void)setTitleTextSize:(CGFloat)titleTextSize
+{
+    self.appearance.titleTextSize = titleTextSize;
+}
+
+- (CGFloat)titleTextSize
+{
+    return self.appearance.titleTextSize;
+}
+
+
+- (void)setSubtitleTextSize:(CGFloat)subtitleTextSize
+{
+    self.appearance.subtitleTextSize = subtitleTextSize;
+}
+
+- (CGFloat)subtitleTextSize
+{
+    return self.appearance.subtitleTextSize;
+}
+
+- (void)setWeekdayTextSize:(CGFloat)weekdayTextSize
+{
+    self.appearance.weekdayTextSize = weekdayTextSize;
+}
+
+- (CGFloat)weekdayTextSize
+{
+    return self.appearance.weekdayTextSize;
+}
+
+- (void)setHeaderTitleTextSize:(CGFloat)headerTitleTextSize
+{
+    self.appearance.headerTitleTextSize = headerTitleTextSize;
+}
+
+- (CGFloat)headerTitleTextSize
+{
+    return self.appearance.headerTitleTextSize;
+}
+
+#pragma GCC diagnostic pop
 
 @end
 
